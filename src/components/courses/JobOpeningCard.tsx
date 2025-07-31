@@ -1,34 +1,31 @@
-import { PiSuitcaseSimpleLight } from "react-icons/pi";
-import { SlOptionsVertical } from 'react-icons/sl';
 import "../../Pages/courses.css";
+import { PiSuitcaseSimpleLight } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
 
 interface JobOpeningCardProps {
-    daysLeft: string;
-    position: string;
-    applicantsCount: string;
+    name: string;
+    students: Number;
     description: string,
-    id: string
+    id: Number;
 }
 
 export default function JobOpeningCard({
-    daysLeft,
-    position,
-    applicantsCount,
+    name,
+    students,
     description,
     id
 }: JobOpeningCardProps) {
     const navigate = useNavigate();
     return (
-        <div className="jobOpening" onClick={() => navigate(`/job-openings/${id}`)}>
+        <div className="jobOpening" onClick={() => navigate(`/courses/${id}`)}>
             <div className="jobOpeningHeader">
                 <div className="jobOpeningHeaderLeft">
                     <PiSuitcaseSimpleLight size={20} color="#fff"/>
                 </div>
             </div>
             <div className="positionApp">
-                <h3>{position}</h3>
-                <h1>{applicantsCount}/<span>Applicants</span></h1>
+                <h3>{name}</h3>
+                <h1>{`${students}`}/<span>Students</span></h1>
             </div>
             <div className="jobOpeningDescription">
                 <p>{description}</p>

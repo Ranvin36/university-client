@@ -5,29 +5,21 @@ import ModalLayout from "../layout/ModalLayout.tsx";
 import { FaPeopleGroup } from "react-icons/fa6";
 import PaymentTable from "./Payments.tsx";
 import EnrollCoursesTable from "./EnrollCoursesTable.tsx";
+import LecturerLayout from "./LecturerTable.tsx";
 
 interface ViewInterviewLayoutProps {
 employee: any;
   onClose: () => void;
 }
-// interface ViewInterviewLayoutProps {
-//   position: string;
-//   setPosition: (input: string) => void;
-//   date: string;
-//   setDate: (input: string) => void;
-//   onClose: () => void;
-//   employee: any;
-// }
 
-const questions = [
-  "Explain the OOP concepts",
-  "What is state management in Angular? How to implement",
-  "How does routing work in Springboot?",
-  "What is the difference between an array and a linkedlist?",
-  "Who does Java work?"
+const courses = [
+  { id: 1, name: "Introduction To Programming"},
+  { id: 2, name: "Machine Learning & Data Mining"},
+  { id: 3, name: "Software Development Group Project"},
 ];
 
-const ViewInterviewLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,employee}) => {
+
+const ViewLecturerLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,employee}) => {
   return (
     <ModalLayout
       onClose={onClose}
@@ -49,14 +41,14 @@ const ViewInterviewLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,emplo
             <div className="interviewHeading">
               <h3>Enrolled  Courses</h3>
             </div>
-            <EnrollCoursesTable/>
+            <LecturerLayout enrolledCourses={courses}/>
           </div>
-          <div className="interviewInput" style={{ marginTop: 0 }}>
+          {/* <div className="interviewInput" style={{ marginTop: 0 }}>
             <div className="interviewHeading">
               <h3>Payments</h3>
             </div>
-            <PaymentTable/>
-          </div>
+            <LecturerLayout enrolledCourses={courses}/>
+          </div> */}
         </div>
         <div className="meetingDetails">
           <div className="horizontalLine"></div>
@@ -67,8 +59,6 @@ const ViewInterviewLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,emplo
                 <h2>Ranvin Wickramasinghe</h2>
               </div>
               <div className="candidateLayoutDetails">
-                <p>Level - 4</p>
-                <p>Program - School Of Computing</p>
                 <p>Email Address - ranvin.789@gmail.com</p>
                 <p>Phone Number -  0767544717</p>
               </div>
@@ -80,4 +70,4 @@ const ViewInterviewLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,emplo
   );
 };
 
-export default ViewInterviewLayout;
+export default ViewLecturerLayout;

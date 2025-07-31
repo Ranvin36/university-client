@@ -82,8 +82,8 @@ const pathname = location.pathname;
           </a>
 
           <a
-            className={`navLink ${pathname === "/social-media-integrations" ? "selected" : ""}`}
-            href="/social-media-integrations"
+            className={`navLink ${pathname === "/payments" ? "selected" : ""}`}
+            href="/payments"
           >
             <RiLinkUnlinkM size={20} />
             <p>Payments</p>

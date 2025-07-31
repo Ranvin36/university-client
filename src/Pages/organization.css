@@ -97,7 +97,7 @@
     display: flex;
     margin-top: 7%;
     flex-direction: column;
-    width: 100%;
+    width: 350px;
 }
 
 .candidateDetails p, .candidateLayoutDetails p{
@@ -120,7 +120,17 @@
 
 .closeIcon{
     display: none;
+}
 
+.mini-input{
+    margin-top: 10px;
+}
+
+.mini-input h3{
+    font-size: 15px;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 1 0px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -234,6 +244,7 @@
 }
 
 .interviewData{
+    width: 1000px;
     padding: 5px 50px; 
 }
 
@@ -253,14 +264,15 @@
 
 .skills{
     display: flex;
+    flex-wrap: wrap;
     margin-top: 10px;
+    gap: 5px;
 }
 
 .skill{
     padding: 13px 22px;
     background-color: #212121;
     border-radius: 10px;
-    margin-right: 5px;
 }
 
 .skill p{
@@ -355,7 +367,8 @@
 .meetingBtn{
     margin: 10px 0;
     background-color: #272727;
-    padding: 20px 50px;
+    width: 350px;
+    padding: 20px 8px;
     border-radius: 10px;
     text-align: center;
     cursor: pointer;
@@ -375,6 +388,7 @@
 .inputContainer h3{
     font-weight: 500;
     color: #fff;
+    font-size: 15.5px;
 }
 
 .inputField{

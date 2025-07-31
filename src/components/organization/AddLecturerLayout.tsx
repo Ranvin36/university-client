@@ -6,12 +6,10 @@ import InputField from "../ui/InputField.tsx";
 // import a from "next/a";
 import ModalLayout from "../layout/ModalLayout.tsx";
 import Dropdown from "../layout/Dropdown.tsx";
-import SearchableDropdown from "./SearchableDropdown.tsx";
 
-interface AddEmployeeLayoutProps {
+interface AddLecturerLayoutProps {
   onClose: () => void;
 }
-
 
 interface Option {
   value: string;
@@ -25,14 +23,13 @@ const options: Array<Option> = [
   { value: 'orchestra', label: 'Orchestra' }
 ];
 
-const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
+const AddLecturerLayout: React.FC<AddLecturerLayoutProps> = ({ onClose}) => {
   const [date, setDate] = useState("");
   const [selectedOptions, setSelectedOptions] = useState<MultiValue<{
     value: string;
     label: string;
   }> | null>(null);
-    const [firstName, setFullName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstName, setFullName] = useState("");
   const [position, setPosition] = useState("");
   const [level, setLevel] = useState("");
   const [email, setEmail] = useState("");
@@ -50,7 +47,7 @@ const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
             <FaPeopleGroup size={20} color="#fff"/>
           </div>
           <div className="createInterviewText">
-            <h3>Create New Student</h3>
+            <h3>Create New Lecturer</h3>
           </div>
         </div>
       }
@@ -66,9 +63,6 @@ const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
           <div className="interviewInputs">
             <InputField label="Email Address" setInput={setEmail} />
           </div>
-          <div className="interviewInputs">
-            <InputField label="Level" setInput={setEmail} />
-          </div>
         </div>
 
         <div className="meetingDetails">
@@ -76,7 +70,7 @@ const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
           <div className="meeting">
             <div className="meetingDetail">
               <div>
-                <h2>Enrollment details</h2>
+                <h2>Instructor details</h2>
               </div>
               <div>
                 <div className="mini-input">
@@ -96,7 +90,7 @@ const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
             </div>
             <div className="meetingBtns">
               <div className="meetingBtn" style={{ backgroundColor: "#fff"}}>
-                <a href="/" style={{color: "#000"}}>Add Student</a>
+                <a href="/" style={{color: "#000"}}>Add Lecturer</a>
               </div>
             </div>
           </div>
@@ -106,4 +100,4 @@ const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
   );
 };
 
-export default AddEmployeeLayout;
+export default AddLecturerLayout;

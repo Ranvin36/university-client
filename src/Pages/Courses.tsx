@@ -25,6 +25,40 @@ export default function Courses() {
         setSelectedEmployee(employee)
     }
 
+    const courses = [
+    {
+        name: "Introduction to Computer Science",
+        description: "Learn the fundamentals of computer science including algorithms, data structures, and basic programming.",
+        students: 120,
+        id:1
+    },
+    {
+        name: "Web Development Bootcamp",
+        description: "Build full-stack web applications using HTML, CSS, JavaScript, Node.js, and MongoDB.",
+        students: 95,
+        id:2
+    },
+    {
+        name: "Machine Learning Essentials",
+        description: "Get hands-on with machine learning algorithms, Python libraries, and real-world datasets.",
+        students: 60,
+        id:3
+    },
+    {
+        name: "Database Design",
+        description: "Understand relational databases, SQL, ER modeling, and normalization.",
+        students: 75,
+        id:4
+    },
+    {
+        name: "Software Engineering Principles",
+        description: "Explore Agile methodologies, version control, testing strategies, and design patterns.",
+        students: 88,
+        id:5
+    }
+    ];
+
+
     return (
         <div className="container">
             {(openModel || viewEmployee) && <div className="overlay"></div>}
@@ -58,13 +92,12 @@ export default function Courses() {
                     </div>
 
                     <div className="jobOpenings">
-                        {JobOpenings.map((job) => (
+                        {courses.map((job) => (
                             <JobOpeningCard
                                 key={job.id}
                                 id={job.id}
-                                daysLeft={job.daysLeft}
-                                position={job.position}
-                                applicantsCount={job.applicantsCount}
+                                name={job.name}
+                                students={job.students}
                                 description={job.description}
                             />
                         ))}

@@ -11,10 +11,8 @@ import AddEmployeeLayout from "../components/organization/AddEmployeeLayout.tsx"
 import { HiMiniBars3BottomLeft } from "react-icons/hi2"
 import ViewEmployeeLayout from "../components/organization/ViewEmployeeLayout.tsx"
 import Employees from "../components/DummyData/Employees"
-import AddLecturerLayout from "../components/organization/AddLecturerLayout.tsx"
-import ViewLecturerLayout from "../components/organization/ViewLecturerLayout.tsx"
 
-export default function Lecturers() {
+export default function Payments() {
     const [navbar, setNavbar] = useState(false)
     const [openModel, setOpenModel] = useState(false)
     const [viewEmployee, setViewEmployee] = useState(false)
@@ -28,8 +26,8 @@ export default function Lecturers() {
     return (
         <div className="container">
             {(openModel || viewEmployee) && <div className="overlay"></div>}
-            {openModel && <AddLecturerLayout onClose={() => setOpenModel(false)} />}
-            {viewEmployee && <ViewLecturerLayout onClose={() => setViewEmployee(false)} employee={selectedEmployee} />}
+            {openModel && <AddEmployeeLayout onClose={() => setOpenModel(false)} />}
+            {viewEmployee && <ViewEmployeeLayout onClose={() => setViewEmployee(false)} employee={selectedEmployee} />}
             <div className="leftFlex">
                 <Navbar setNavbar={setNavbar} navbar={navbar} />
             </div>
@@ -41,8 +39,8 @@ export default function Lecturers() {
                         </div>
                     }
                     <div className="header">
-                        <Greeting heading="Your Lecturers" subheading="Manage Your Lecturers" />
-                        <CreateInterviewBtn text='Add Lecturer' onClick={() => setOpenModel(true)} />
+                        <Greeting heading="Payments To Be Made" subheading="Manage Your Payments" />
+                        {/* <CreateInterviewBtn text='Add Lecturer' onClick={() => setOpenModel(true)} /> */}
                     </div>
                 </div>
                 <hr style={{ border: "1px solid #272727", marginTop: -10 }} />
