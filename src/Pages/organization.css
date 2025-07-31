@@ -1,0 +1,456 @@
+.container{
+    display: flex;
+    padding: 10px 30px;
+    min-height: 100vh;
+}
+
+.overlay{
+    position: absolute;
+    content: '';
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.leftFlex{
+    flex-basis: 20%;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.employeesContainer{
+    padding: 20px 50px;
+}
+
+.selectAllBtn{
+    border: 1px solid #fff;
+    width: 250px;
+    padding: 18px 30px;
+    text-align: center;
+    border-radius: 33px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.selectAllBtn a{
+    font-weight: 300;
+    color: #fff;
+    text-decoration: none;
+}
+
+.candidates{
+    margin-top: 25px;
+}
+
+.search{
+    background-color: #373737;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-input input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: "poppins", "sans-serif";
+}
+
+.candidate{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 20px 40px;
+    margin-top: 10px;
+    border-bottom: 1px solid #373737;
+}
+.candidateLayout{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 20px 20px 20px 40px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.candidateDetails{
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.candidateLayoutDetails{
+    display: flex;
+    margin-top: 7%;
+    flex-direction: column;
+    width: 100%;
+}
+
+.candidateDetails p, .candidateLayoutDetails p{
+    color: #fff;
+}
+
+.detail {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+
+.detail p{
+    font-weight: 300;
+    font-size: 18px;   
+    margin-left: 5px;
+}
+
+.closeIcon{
+    display: none;
+
+}
+
+@media screen and (max-width: 1024px) {
+    .container{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    .header{
+        flex-direction: column;
+    }
+    .closeIcon{
+        cursor: pointer;
+        margin: 10px 0;
+        background-color: #272727;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .candidate{
+        flex-direction: column;
+    }
+
+    .candidateDetails{
+        flex-direction: column;
+    }
+    .detail{
+        margin: 5px 0;
+    }
+    
+}
+
+
+
+/* Candidate */
+
+.createInterview{
+    background-color: #fff;
+    width: 200px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 17px;
+    cursor: pointer;
+}
+
+.createInterview a{
+    color: #000;
+    font-weight: 300;
+    text-decoration: none;
+}
+
+/* EmployeeLayout */
+
+.createInterviewLayout{
+    position: fixed;
+    top: 6%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 85%;
+    height: 850px;
+    background-color: #1d1d1d;
+    border-radius: 30px;
+    z-index: 1;
+}
+
+.createInterviewHeader{
+    padding: 40px 50px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.createInterviewIcons{
+    display: flex;
+    align-items: center;
+}
+
+.createInterviewText h3{
+    color: #fff;
+    font-weight: 300;
+}
+
+.createInterviewText p{
+    font-weight: 300;
+    font-size: 13px;
+    color: #fff;
+}
+
+.iconBg{
+    background-color: #212121;
+    margin-right: 10px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.interviewBg{
+    display: flex;
+    justify-content: space-between;
+}
+
+.interviewData{
+    padding: 5px 50px; 
+}
+
+.interviewInputs{
+    margin-top: -10px;
+    width: 550px;
+}
+
+.interviewHeading{
+    margin-top: 20px;
+}
+
+.interviewHeading h3{
+    font-weight: 500;
+    color: #fff;
+}
+
+.skills{
+    display: flex;
+    margin-top: 10px;
+}
+
+.skill{
+    padding: 13px 22px;
+    background-color: #212121;
+    border-radius: 10px;
+    margin-right: 5px;
+}
+
+.skill p{
+    font-weight: 300;
+    color: #fff;
+}
+
+
+.check{
+    margin-top: -10px;
+}
+.checkBox{
+    display: flex;
+    margin-top: 5px;
+}
+
+.checkBox input{
+    background-color: #1d1d1d;
+}
+
+.checkBox p{
+    font-weight: 300;
+    margin-left: 10px;
+    color: #fff;
+}
+
+
+.closeInterview{
+    cursor: pointer;
+}
+
+.horizontalLine{
+    height: 743px;
+    width: 2px;
+    background-color: #373737;
+}
+
+.meeting{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.meetingDetails{
+    display: flex;
+}
+
+.contentList {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #2F2F2F;
+  padding: 20px 15px;
+  border-radius: 20px;
+}
+
+.contentItem {
+  background: #272727;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 300;
+  color: #fff;
+}
+
+.meetingDetails h2{
+    color: #fff;
+}
+
+.meetingDetails p{
+    font-weight: 300;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.meetingDetail{
+    width: 450px;
+    padding: 30px 90px 0px 20px;
+}
+
+.meeting h2{
+    font-size: 23px;
+    font-weight: 300;
+}
+
+.meetingBtns{
+    margin: 30px 0;
+}
+
+.meetingBtn{
+    margin: 10px 0;
+    background-color: #272727;
+    padding: 20px 50px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.meetingBtn a{
+    font-size: 15px;
+    font-weight: 300;
+    text-decoration: none;
+    color: #fff;
+}
+
+.inputContainer{
+    margin: 30px 0;
+}
+
+.inputContainer h3{
+    font-weight: 500;
+    color: #fff;
+}
+
+.inputField{
+    background-color:#242121;
+    margin: 10px 0;
+    border-radius: 5px;
+    padding: 5px 0;
+}
+
+.error{
+    border: 1px solid saddlebrown;
+}
+
+.errorMessage{
+    color: rgb(252, 165, 165);
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+.inputField input{
+    font-weight: 300;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-poppins-sans);
+    padding: 17px 20px;
+    width: 100%;
+}
+
+.inputField textarea {
+    font-weight: 300;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-poppins-sans);
+    padding: 17px 20px;
+    width: 100%;
+    resize: vertical;
+    min-height: 80px;
+    color: inherit;
+}
+
+.createInterviewLine{
+    width: 100%;
+    height: 2px;
+    margin-top: -20px;
+    background-color: #272727;
+}
+
+
+@media screen and (max-width: 1020px) {
+    .createInterviewLayout{
+        width: 100%;
+        height: 2000px;
+        top: 0;
+    }
+    .interviewBg{
+        flex-direction: column;
+        align-items:center
+    }
+    .horizontalLine{
+        display: none;
+    }
+    .interviewInputs{
+        width:300px;
+    }
+    .meetingBtns{
+        width: 300px;
+    }
+    .subInput{
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .checkBox p{
+        font-size: 10px;
+    }
+}

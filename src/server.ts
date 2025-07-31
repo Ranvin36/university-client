@@ -1,0 +1,1 @@
+export const server = "https://localhost:8243/university/v1.0.0";
