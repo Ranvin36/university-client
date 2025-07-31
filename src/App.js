@@ -5,6 +5,7 @@ import Login from './Pages/login.tsx';
 import Dashboard from './Pages/dashboard.tsx';
 import Student from './Pages/student.tsx';
 import Lecturers from './Pages/lecturers.tsx';
+import Courses from './Pages/Courses.tsx';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path='/dashboard' element={<Dashboard/>}/>
       <Route path='/students' element={<Student/>}/>
       <Route path='/lectures' element={<Lecturers/>}/>
+      <Route path='/courses' element={<Courses/>}/>
    </Routes>
   );
 }

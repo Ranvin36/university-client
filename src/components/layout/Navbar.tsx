@@ -74,8 +74,8 @@ const pathname = location.pathname;
           </a>
 
           <a
-            className={`navLink ${pathname === "/organization" ? "selected" : ""}`}
-            href="/organization"
+            className={`navLink ${pathname === "/courses" ? "selected" : ""}`}
+            href="/courses"
           >
             <GoOrganization size={20} />
             <p>Courses</p>
