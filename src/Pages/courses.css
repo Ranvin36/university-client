@@ -1,0 +1,92 @@
+.jobOpenings{
+    margin: 40px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.jobOpening{
+    background-color: #262626;
+    border-radius: 23px;
+    width: 350px;
+    padding: 20px 30px;
+    cursor: pointer;
+}
+
+.jobOpeningHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.jobOpeningHeaderLeft{
+    width: 45px;
+    height: 45px;
+    background-color: #212121;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30%;
+}
+
+.jobOpeningHeaderRight{
+    display: flex;
+    align-items: center;
+}
+
+.daysLeft{
+    background-color: #2D2D2D;
+    padding: 20px 25px;
+    border-radius: 30px;
+}
+
+.daysLeft p{
+    font-weight: 300;
+}
+
+.optionsBg{
+    background-color: #fff;
+    padding: 18px 20px;
+    border-radius: 18px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.positionApp{
+    margin: 15px 0;
+}
+
+.positionApp h3{
+    padding-top: 10px;
+    font-weight: 300;
+    color: #fff;
+}
+
+.positionApp h1{
+    margin-top: 5px;
+    font-size: 40px;
+    color: #fff;
+}
+
+.positionApp h1 span{
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.jobOpeningDescription{
+    margin: 10px 0;
+    max-width: 350px;
+}
+
+.jobOpeningDescription p{
+    font-weight: 300;
+    font-size: 13px;
+    color: #CDCDCD;
+}
+
+
+.closeIcon{
+    display: none;
+}
