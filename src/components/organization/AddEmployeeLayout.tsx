@@ -1,45 +1,137 @@
 import "../../Pages/organization.css";
-import Select,{MultiValue} from 'react-select';
+import Select, { MultiValue } from 'react-select';
 import { FaPeopleGroup } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../ui/InputField.tsx";
-// import a from "next/a";
 import ModalLayout from "../layout/ModalLayout.tsx";
 import Dropdown from "../layout/Dropdown.tsx";
-import SearchableDropdown from "./SearchableDropdown.tsx";
+import axios from "axios";
+import { server } from "../../server.ts";
+import { useNavigate } from "react-router-dom";
+import { getData } from "../../localStorage.tsx";
+import React from "react";
+import Spinner from "../ui/Spinner.tsx";
 
-interface AddEmployeeLayoutProps {
-  onClose: () => void;
-}
-
-
-interface Option {
+interface CourseOption {
+  courseId: string;
+  courseName: string;
   value: string;
   label: string;
 }
 
-const options: Array<Option> = [
-  { value: 'blues', label: 'Blues' },
-  { value: 'rock', label: 'Rock' },
-  { value: 'jazz', label: 'Jazz' },
-  { value: 'orchestra', label: 'Orchestra' }
-];
+interface AddEmployeeLayoutProps {
+  onClose: () => void;
+  student?: {
+    _id: string;
+    name: string;
+    phoneNumber: number;
+    email: string;
+    level: string;
+    program: string;
+    enrolledCourses: {
+      courseId: string;
+      courseName: string;
+    }[];
+  };
+}
 
-const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
-  const [date, setDate] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState<MultiValue<{
-    value: string;
-    label: string;
-  }> | null>(null);
-    const [firstName, setFullName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [position, setPosition] = useState("");
-  const [level, setLevel] = useState("");
-  const [email, setEmail] = useState("");
+const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose, student }) => {
+  const navigate = useNavigate();
+  const token = getData();
+  const [selectedOptions, setSelectedOptions] = useState<MultiValue<CourseOption> | null>(null);
+  const [courses, setCourses] = useState<CourseOption[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  function onSelect(){
+  const [fullName, setFullName] = useState(student?.name || "");
+  const [phoneNumber, setphoneNumber] = useState(student?.phoneNumber || "");
+  const [level, setLevel] = useState(student?.level || "");
+  const [email, setEmail] = useState(student?.email || "");
+  const [program, setSelectedProgram] = useState(student?.program || "");
 
+  function onSelect(item: string) {
+    setSelectedProgram(item);
   }
+
+  async function getCourses() {
+    try {
+      const response = await axios.get(`${server}/courses`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      const formatted = response.data.map((course: any) => ({
+        courseId: course._id,
+        courseName: course.title,
+        value: course._id,
+        label: course.title
+      }));
+      
+      setCourses(formatted);
+      
+      // Prefill selected courses for edit mode
+      if (student && student.enrolledCourses) {
+        const preSelected = formatted.filter(c =>
+          student.enrolledCourses.some(ec => ec.courseId === c.courseId)
+        );
+        setSelectedOptions(preSelected);
+      }
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  }
+  
+  async function handleSubmit() {
+    setIsLoading(true);
+    const selectedCourses = selectedOptions?.map(option => ({
+      courseId: option.courseId,
+      courseName: option.courseName
+    })) || [];
+
+    const data = {
+      name: fullName,
+      phoneNumber,
+      email,
+      level,
+      program,
+      enrolledCourses: selectedCourses
+    };
+
+    try {
+      let response;
+      if (student?._id) {
+        console.log(data , " : ID")
+        response = await axios.put(`${server}/students/${student._id}`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+      } else {
+        console.log(data , " : DATA")
+        response = await axios.post(`${server}/students`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+      }
+
+      console.log(response);
+      onClose();
+      window.location.reload(); 
+    } catch (error) {
+      console.error("Error saving student:", error);
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   return (
     <ModalLayout
@@ -47,10 +139,10 @@ const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
       header={
         <div className="createInterviewIcons">
           <div className="iconBg">
-            <FaPeopleGroup size={20} color="#fff"/>
+            <FaPeopleGroup size={20} color="#fff" />
           </div>
           <div className="createInterviewText">
-            <h3>Create New Student</h3>
+            <h3>{student && student._id ? "Edit Student" : "Create New Student"}</h3>
           </div>
         </div>
       }
@@ -58,16 +150,16 @@ const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
       <div className="interviewBg">
         <div className="interviewData">
           <div className="interviewInputs">
-            <InputField label="Full Name" setInput={setFullName} />
+            <InputField label="Full Name" setInput={setFullName}  input={fullName}/>
           </div>
           <div className="interviewInputs">
-            <InputField label="Phone Number" setInput={setPosition} />
+            <InputField label="Number" setInput={setphoneNumber} input={phoneNumber}/>
           </div>
           <div className="interviewInputs">
-            <InputField label="Email Address" setInput={setEmail} />
+            <InputField label="Email Address" setInput={setEmail} input={email}/>
           </div>
           <div className="interviewInputs">
-            <InputField label="Level" setInput={setEmail} />
+            <InputField label="Level" setInput={setLevel} input={level} />
           </div>
         </div>
 
@@ -81,23 +173,43 @@ const AddEmployeeLayout: React.FC<AddEmployeeLayoutProps> = ({ onClose}) => {
               <div>
                 <div className="mini-input">
                   <h3>Program</h3>
-                  <Dropdown options={["Computer Science","Software Engineering"]} placeholder="Select A Program" onSelect={onSelect}/>
+                  <Dropdown
+                    options={["Computer Science", "Software Engineering"]}
+                    placeholder="Select A Program"
+                    onSelect={onSelect}
+                  />
                 </div>
-                <div className="mini-input" style={{width:350}}>
+                <div className="mini-input" style={{ width: 350 }}>
                   <h3>Select Courses</h3>
-                      <Select
-                        defaultValue={selectedOptions}
-                        onChange={setSelectedOptions}
-                        options={options}
-                        isMulti
-                      />
+                    <Select
+                      defaultValue={selectedOptions}
+                      onChange={setSelectedOptions}
+                      options={courses}
+                      isMulti
+                    />
                 </div>
               </div>
             </div>
             <div className="meetingBtns">
-              <div className="meetingBtn" style={{ backgroundColor: "#fff"}}>
-                <a href="/" style={{color: "#000"}}>Add Student</a>
+              {isLoading ? (
+                  <div
+                    className="meetingBtn"
+                    style={{ backgroundColor: "#fff" }}
+                    onClick={handleSubmit}
+                  >
+                  <Spinner color="#000" />
+                </div>
+              ) : (
+                <div
+                  className="meetingBtn"
+                  style={{ backgroundColor: "#fff" }}
+                  onClick={handleSubmit}
+                >
+                <a href="#" style={{ color: "#000" }}>
+                  {student && student._id ? "Update Student" : "Add Student"}
+                </a>
               </div>
+              )}
             </div>
           </div>
         </div>

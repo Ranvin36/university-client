@@ -62,6 +62,10 @@
     margin-left: 10px;
 }
 
+.companyName p{
+    color: #fff;
+}
+
 .companyName h5{
     font-size: 13px;
     font-weight: 300;
@@ -254,6 +258,11 @@
     /* flex-basis: 48%; */
 }
 
+.row{
+    border-bottom: 1px solid #262626;
+    padding: 10px 0;
+}
+
 .row,.upcomingInterviewsRow{
     display: flex;
     align-items: center;
@@ -313,6 +322,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.loading{
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 

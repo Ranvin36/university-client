@@ -4,7 +4,7 @@ import OrganizationBtn from "./OrganizationBtn.tsx";
 
 interface CandidateProps {
     onClick: (employee: any) => void;
-    btnText:string
+    btnText?:string
     employee: any;
 }
 
@@ -12,18 +12,23 @@ const Candidate: React.FC<CandidateProps> = ({ onClick, employee,btnText }) => {
     return (
         <div className="candidate">
             <div className="candidateDetails">
-                <div className="detailk">
-                    <input type="radio" />
+                <div className="detailk" style={{marginRight:50}}>
+                    <p>{employee._id}</p>
                 </div>
                 <div className="detail">
-                    <p>Ranvin Wickramasinghe</p>
+                    <p>{employee.name}</p>
                 </div>
                 <div className="detail" style={{ display: "flex" }}>
                     <LuUserRound color="#fff"/>
-                    <p>Associate Software Engineer</p>
+                    <p>{employee.email}</p>
+                </div>
+                <div className="detail">
+                    <p>{employee.phoneNumber}</p>
                 </div>
             </div>
+            {btnText && 
             <OrganizationBtn text={btnText} onClick={() => onClick(employee)}/>
+            }
         </div>
     );
 };

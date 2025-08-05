@@ -1,13 +1,8 @@
 import React from "react";
 import "./PaymentTable.css";
 
-const courses = [
-  { id: 1, name: "Introduction To Programming", finalGrade:"N/A"},
-  { id: 2, name: "Machine Learning & Data Mining", finalGrade:"80%"},
-  { id: 3, name: "Software Development Group Project", finalGrade:"50%"},
-];
-
-const EnrollCoursesTable = () => {
+const EnrollCoursesTable = ({enrolledCourses}) => {
+  console.log(enrolledCourses);
   return (
     <div className="payment-container">
       <table className="payment-table">
@@ -19,11 +14,11 @@ const EnrollCoursesTable = () => {
           </tr>
         </thead>
         <tbody>
-          {courses.map((payment) => (
-            <tr key={payment.id}>
-              <td>{payment.id}</td>
-              <td>{payment.name}</td>
-              <td>{payment.finalGrade}</td>
+          {enrolledCourses && enrolledCourses.length>0 && enrolledCourses.map((payment,index) => (
+            <tr key={index}>
+              <td>{payment.courseId}</td>
+              <td>{payment.courseName}</td>
+              <td>N/A</td>
             </tr>
           ))}
         </tbody>

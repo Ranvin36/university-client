@@ -5,29 +5,36 @@ import ModalLayout from "../layout/ModalLayout.tsx";
 import { FaPeopleGroup } from "react-icons/fa6";
 import PaymentTable from "./Payments.tsx";
 import EnrollCoursesTable from "./EnrollCoursesTable.tsx";
+import axios from "axios";
+import { server } from "../../server.ts";
+import { getData } from "../../localStorage.tsx";
+import React from "react";
 
 interface ViewInterviewLayoutProps {
-employee: any;
+  employee: any;
   onClose: () => void;
+  editEmployee?: () => void;
 }
-// interface ViewInterviewLayoutProps {
-//   position: string;
-//   setPosition: (input: string) => void;
-//   date: string;
-//   setDate: (input: string) => void;
-//   onClose: () => void;
-//   employee: any;
-// }
 
-const questions = [
-  "Explain the OOP concepts",
-  "What is state management in Angular? How to implement",
-  "How does routing work in Springboot?",
-  "What is the difference between an array and a linkedlist?",
-  "Who does Java work?"
-];
+const ViewInterviewLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,employee,editEmployee}) => {
+  const token = getData();
+  async function deleteEmployee() { 
+    try {
+      const response = await axios.delete(`${server}/students/${employee._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      onClose();
+    }
+    catch (error) { 
+      console.error("Error deleting employee:", error);
+    }
 
-const ViewInterviewLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,employee}) => {
+  }
+  
+
   return (
     <ModalLayout
       onClose={onClose}
@@ -37,8 +44,8 @@ const ViewInterviewLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,emplo
             <FaPeopleGroup size={20} color="#fff" />
           </div>
           <div className="createInterviewText">
-            <h3>Ranvin Wickramasinghe</h3>
-            <p>IIT ID - 20221587</p>
+            <h3>{employee.name}</h3>
+            <p>ID - {employee._id}</p>
           </div>
         </div>
       }
@@ -49,13 +56,13 @@ const ViewInterviewLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,emplo
             <div className="interviewHeading">
               <h3>Enrolled  Courses</h3>
             </div>
-            <EnrollCoursesTable/>
+            <EnrollCoursesTable enrolledCourses={employee.enrolledCourses}/>
           </div>
           <div className="interviewInput" style={{ marginTop: 0 }}>
             <div className="interviewHeading">
               <h3>Payments</h3>
             </div>
-            <PaymentTable/>
+            <PaymentTable payments={employee.payments}/>
           </div>
         </div>
         <div className="meetingDetails">
@@ -64,13 +71,21 @@ const ViewInterviewLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,emplo
             <div className="candidateLayout">
               <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
                 <RiUser6Line size={30} />
-                <h2>Ranvin Wickramasinghe</h2>
+                <h2>{employee.name}</h2>
               </div>
               <div className="candidateLayoutDetails">
-                <p>Level - 4</p>
-                <p>Program - School Of Computing</p>
-                <p>Email Address - ranvin.789@gmail.com</p>
-                <p>Phone Number -  0767544717</p>
+                <p>Level - {employee.level}</p>
+                <p>Program - {employee.program}</p>
+                <p>Email Address - {employee.email}</p>
+                <p>Phone Number -  {employee.phoneNumber}</p>
+              </div>
+            </div>
+            <div className="meetingBtns">
+              <div className="meetingBtn edit" onClick={editEmployee}>
+                  <a href="#">Edit Student</a>
+              </div>
+              <div className="meetingBtn" style={{ backgroundColor: "#fff" }} onClick={deleteEmployee}>
+                  <a href="#" style={{color:"#000"}}>Delete Student</a>
               </div>
             </div>
           </div>

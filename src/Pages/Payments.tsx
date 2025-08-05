@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Navbar from "../components/layout/Navbar.tsx"
 import "./organization.css"
 import RightFlexLayout from "../components/layout/RightFlexLayout.tsx"
@@ -11,22 +11,48 @@ import AddEmployeeLayout from "../components/organization/AddEmployeeLayout.tsx"
 import { HiMiniBars3BottomLeft } from "react-icons/hi2"
 import ViewEmployeeLayout from "../components/organization/ViewEmployeeLayout.tsx"
 import Employees from "../components/DummyData/Employees"
+import axios from "axios"
+import { server } from "../server.ts"
+import { getData } from "../localStorage.tsx"
+import MakePamentLayout from "../components/organization/MakePamentLayout.tsx"
+import React from "react"
 
 export default function Payments() {
+    const token = getData();
     const [navbar, setNavbar] = useState(false)
+    const [unPaid, setUnpaid] = useState([])
     const [openModel, setOpenModel] = useState(false)
     const [viewEmployee, setViewEmployee] = useState(false)
     const [selectedEmployee, setSelectedEmployee] = useState([])
 
     function handleViewEmployee(employee: any) {
-        setViewEmployee(true)
+        setOpenModel(true)
         setSelectedEmployee(employee)
     }
+
+    async function getUnPaid(){
+        try{
+            const response = await axios.get(`${server}/students/unpaid`,{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
+            console.log(response.data)
+            setUnpaid(response.data)
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getUnPaid();
+    },[])
 
     return (
         <div className="container">
             {(openModel || viewEmployee) && <div className="overlay"></div>}
-            {openModel && <AddEmployeeLayout onClose={() => setOpenModel(false)} />}
+            {openModel && <MakePamentLayout onClose={() => setOpenModel(false)} employee={selectedEmployee} />}
             {viewEmployee && <ViewEmployeeLayout onClose={() => setViewEmployee(false)} employee={selectedEmployee} />}
             <div className="leftFlex">
                 <Navbar setNavbar={setNavbar} navbar={navbar} />
@@ -40,24 +66,15 @@ export default function Payments() {
                     }
                     <div className="header">
                         <Greeting heading="Payments To Be Made" subheading="Manage Your Payments" />
-                        {/* <CreateInterviewBtn text='Add Lecturer' onClick={() => setOpenModel(true)} /> */}
+                        {/* <CreateInterviewBtn text='Make Payments' onClick={() => setOpenModel(true)} /> */}
                     </div>
                 </div>
                 <hr style={{ border: "1px solid #272727", marginTop: -10 }} />
 
                 <div className="employeesContainer">
-                    <div className="selectAllBtn">
-                        <div className="search-input">
-                            <input type="text" placeholder="Search Lecturer By Id" />
-                        </div>
-                        <div className="search">
-                            <a href="#"><LuUserRound/></a>
-                        </div>
-                    </div>
-
                     <div className="candidates">
-                        {Employees && Employees.map((employee) => (
-                            <Candidate key={employee.id} employee={employee} onClick={handleViewEmployee} btnText="Manage Lecturer"/>
+                        {unPaid && unPaid.map((employee:any) => (
+                            <Candidate key={employee.id} employee={employee} onClick={handleViewEmployee} btnText="Make Payment"/>
                         ))}
                     </div>
                 </div>

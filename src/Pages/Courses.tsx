@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Navbar from "../components/layout/Navbar.tsx"
 import "./organization.css"
 import "./courses.css"
@@ -13,17 +13,47 @@ import { HiMiniBars3BottomLeft } from "react-icons/hi2"
 import ViewEmployeeLayout from "../components/organization/ViewEmployeeLayout.tsx"
 import JobOpeningCard from '../components/courses/JobOpeningCard.tsx'
 import CreateJobLayout from "../components/courses/createCourseLayout.tsx"
+import axios from "axios"
+import { server } from "../server.ts"
+import { getData } from "../localStorage.tsx"
+import Spinner from "../components/ui/Spinner.tsx"
+import React from "react"
 
 export default function Courses() {
+    const token = getData()
+    const [coursesData, setCoursesData] = useState([])
     const [navbar, setNavbar] = useState(false)
     const [openModel, setOpenModel] = useState(false)
     const [viewEmployee, setViewEmployee] = useState(false)
     const [selectedEmployee, setSelectedEmployee] = useState([])
-
+    const [isLoading, setIsLoading] = useState(false)
     function handleViewEmployee(employee: any) {
         setViewEmployee(true)
         setSelectedEmployee(employee)
     }
+
+    async function getCourses(){
+        setIsLoading(true)
+        try{
+            const response = await axios.get(`${server}/courses`,{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
+
+            console.log(response.data)
+            setCoursesData(response.data)
+            setIsLoading(false)
+        }
+        catch(error){
+            console.log(error)
+            setIsLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        getCourses()
+    },[])
 
     const courses = [
     {
@@ -81,28 +111,25 @@ export default function Courses() {
                 </div>
                 <hr style={{ border: "1px solid #272727", marginTop: -10 }} />
 
-                <div className="employeesContainer">
-                    <div className="selectAllBtn">
-                        <div className="search-input">
-                            <input type="text" placeholder="Search Course By Id" />
-                        </div>
-                        <div className="search">
-                            <a href="#"><LuUserRound/></a>
+                {isLoading ?                  
+                    <div className="loading">
+                        <Spinner color="#fff"/>
+                    </div>
+                        :
+                    <div className="employeesContainer">
+                        <div className="jobOpenings">
+                            {coursesData.map((job:any) => (
+                                <JobOpeningCard
+                                    key={job.id}
+                                    id={job._id}
+                                    name={job.title}
+                                    students={job.students}
+                                    description={job.description}
+                                />
+                            ))}
                         </div>
                     </div>
-
-                    <div className="jobOpenings">
-                        {courses.map((job) => (
-                            <JobOpeningCard
-                                key={job.id}
-                                id={job.id}
-                                name={job.name}
-                                students={job.students}
-                                description={job.description}
-                            />
-                        ))}
-                    </div>
-                </div>
+                }
             </RightFlexLayout>
         </div>
     )

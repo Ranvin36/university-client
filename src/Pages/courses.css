@@ -8,6 +8,7 @@
 .jobOpening{
     background-color: #262626;
     border-radius: 23px;
+    width: 350px;
     padding: 20px 30px;
     cursor: pointer;
 }

@@ -15,8 +15,8 @@ const LecturerLayout = ({enrolledCourses}) => {
         <tbody>
           {enrolledCourses.map((payment) => (
             <tr key={payment.id}>
-              <td>{payment.id}</td>
-              <td>{payment.name}</td>
+              <td>{payment.courseId}</td>
+              <td>{payment.courseName}</td>
             </tr>
           ))}
         </tbody>

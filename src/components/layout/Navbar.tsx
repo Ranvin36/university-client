@@ -1,6 +1,6 @@
 import "../../Pages/dashboard.css";
 import { useLocation } from "react-router-dom";
-
+import React from "react";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { PiSuitcaseSimpleLight } from "react-icons/pi";
@@ -24,7 +24,7 @@ const pathname = location.pathname;
     <div className={`navbar ${!navbar ? "closeNav" : ""}`}>
       <div className="head">
         <div className="logo">
-          <h1>WorkSync.</h1>
+          <h1>ElevateEd.</h1>
           {navbar && (
             <div className="closeIcon" onClick={() => setNavbar(false)}>
               <GrClose />
@@ -38,7 +38,7 @@ const pathname = location.pathname;
           </div>
           <div className="companyName">
             <h5>Your Company</h5>
-            <p>Align Labs</p>
+            <p>Highridge Institute</p>
           </div>
         </div>
 
@@ -93,11 +93,6 @@ const pathname = location.pathname;
 
       <div className="toe">
         <hr className="menu" />
-
-        <a className="navLink toeBtn" href="/">
-          <IoSettingsOutline size={20} />
-          <p>Settings</p>
-        </a>
 
         <a
           className="navLink toeBtn"

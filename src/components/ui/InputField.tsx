@@ -2,6 +2,7 @@ import "../../Pages/organization.css";
 
 type InputFieldProps = {
     setInput: (input: string) => void,
+    input:any,
     label: string,
     password?: boolean,
     email?: boolean,
@@ -9,7 +10,7 @@ type InputFieldProps = {
     errorMessage?: any
 }
 
-const InputField: React.FC<InputFieldProps> = ({ setInput, label, password, email, errorCode, errorMessage }) => {
+const InputField: React.FC<InputFieldProps> = ({ setInput, input, label, password, email, errorCode, errorMessage }) => {
     return (
         <div className="inputContainer">
             <h3>{label}</h3>
@@ -17,6 +18,7 @@ const InputField: React.FC<InputFieldProps> = ({ setInput, label, password, emai
                 <input
                     type={password ? "password" : email ? "email" : "text"}
                     placeholder={`Enter Your ${label}`}
+                    value={input}
                     onChange={(e) => setInput(e.target.value)}
                 />
             </div>

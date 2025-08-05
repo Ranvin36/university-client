@@ -6,20 +6,35 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import PaymentTable from "./Payments.tsx";
 import EnrollCoursesTable from "./EnrollCoursesTable.tsx";
 import LecturerLayout from "./LecturerTable.tsx";
+import axios from "axios";
+import { server } from "../../server.ts";
+import { getData } from "../../localStorage.tsx";
 
 interface ViewInterviewLayoutProps {
-employee: any;
+  employee: any;
   onClose: () => void;
+  editEmployee?: () => void;
 }
 
-const courses = [
-  { id: 1, name: "Introduction To Programming"},
-  { id: 2, name: "Machine Learning & Data Mining"},
-  { id: 3, name: "Software Development Group Project"},
-];
+const ViewLecturerLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,employee,editEmployee}) => {
+   const token = getData()
+   async function deleteLecturer() { 
+    try {
+      const response = await axios.delete(`${server}/instructors/${employee._id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      console.log(response.data);
+      onClose();
+    }
+    catch (error) { 
+      console.error("Error deleting employee:", error);
+    }
 
-
-const ViewLecturerLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,employee}) => {
+  }
+  
   return (
     <ModalLayout
       onClose={onClose}
@@ -29,8 +44,8 @@ const ViewLecturerLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,employ
             <FaPeopleGroup size={20} color="#fff" />
           </div>
           <div className="createInterviewText">
-            <h3>Ranvin Wickramasinghe</h3>
-            <p>IIT ID - 20221587</p>
+            <h3>{employee.name}</h3>
+            <p>ID - {employee._id}</p>
           </div>
         </div>
       }
@@ -41,14 +56,8 @@ const ViewLecturerLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,employ
             <div className="interviewHeading">
               <h3>Enrolled  Courses</h3>
             </div>
-            <LecturerLayout enrolledCourses={courses}/>
+            <LecturerLayout enrolledCourses={employee.coursesTaught}/>
           </div>
-          {/* <div className="interviewInput" style={{ marginTop: 0 }}>
-            <div className="interviewHeading">
-              <h3>Payments</h3>
-            </div>
-            <LecturerLayout enrolledCourses={courses}/>
-          </div> */}
         </div>
         <div className="meetingDetails">
           <div className="horizontalLine"></div>
@@ -56,11 +65,19 @@ const ViewLecturerLayout: React.FC<ViewInterviewLayoutProps> = ({ onClose,employ
             <div className="candidateLayout">
               <div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
                 <RiUser6Line size={30} />
-                <h2>Ranvin Wickramasinghe</h2>
+                <h2>{employee.name}</h2>
               </div>
               <div className="candidateLayoutDetails">
-                <p>Email Address - ranvin.789@gmail.com</p>
-                <p>Phone Number -  0767544717</p>
+                <p>Email Address - {employee.email}</p>
+                <p>Phone Number -  {employee.phoneNumber}</p>
+              </div>
+            </div>
+          <div className="meetingBtns">
+              <div className="meetingBtn edit" onClick={editEmployee}>
+                  <a href="#">Edit Lecturer</a>
+              </div>
+              <div className="meetingBtn" style={{ backgroundColor: "#fff" }} onClick={deleteLecturer}>
+                  <a href="#" style={{color:"#000"}}>Delete Lecturer</a>
               </div>
             </div>
           </div>
