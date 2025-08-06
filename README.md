@@ -10,7 +10,6 @@ A React-based web application for university management system with authenticati
 - **Lecturer Management**: Handle lecturer profiles and data
 - **Course Management**: Browse courses with detailed course pages
 - **Payment Tracking**: Monitor and manage payment records
-- **Responsive Design**: Built with Material-UI components
 
 ## Prerequisites
 
